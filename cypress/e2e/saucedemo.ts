@@ -1,5 +1,5 @@
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
-import { sauceDemoPage } from '../support/page-objects/saucedemo-page';
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor'
+import { sauceDemoPage } from '../support/page-objects/saucedemo-page'
 
 beforeEach(() => {
   cy.visit("https://www.saucedemo.com/")
@@ -30,7 +30,7 @@ When('user sorted the products by name z to a', () => {
 })
 
 Then('products should be sorted by name z to a', () => {
-  sauceDemoPage.sortProductByNameZA();
+  sauceDemoPage.sortProductByNameZA()
 })
 
 When("user sorted the products by price low to high", () => {
@@ -61,5 +61,10 @@ When ('user clicks the shopping cart icon', () => {
 Then ('user should be able to view the shopping cart', () => {
   sauceDemoPage.cartItemsPage()
 })
-When ('user removes a product from the cart', () => {})
-Then ('products should be removed from the cart', () => {})
+When ('user removes a product from the cart', () => {
+  cy.findByTestId('remove-sauce-labs-backpack').click()
+})
+
+Then ('products should be removed from the cart', () => {
+  cy.get('[data-test="inventory-item"]').should('have.length', 1)
+})
